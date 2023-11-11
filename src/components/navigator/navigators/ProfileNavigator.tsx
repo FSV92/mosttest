@@ -8,8 +8,12 @@ const ProfileStack =
   createNativeStackNavigator<ProfileStackNavigatorTypeList>();
 
 const ProfileStackNavigator = () => (
-  <ProfileStack.Navigator screenOptions={{headerShown: false}}>
-    <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+  <ProfileStack.Navigator>
+    <ProfileStack.Screen
+      name="ProfileScreen"
+      component={ProfileScreen}
+      options={{title: 'Профиль пользователя'}}
+    />
   </ProfileStack.Navigator>
 );
 

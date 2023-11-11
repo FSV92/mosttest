@@ -2,16 +2,16 @@ import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 
+import {useAppSelector} from '../../store/hooks/redux';
+
 // навигаторы
 import AuthStackNavigator from './navigators/AuthNavigator';
 import BottomTabs from './navigators/BottomTabs';
 
-type propsTypes = {
-  isAuth: boolean;
-};
+type propsTypes = {};
 
-const AppNavigator = (props: propsTypes) => {
-  const {isAuth} = props;
+const AppNavigator = () => {
+  const authStore = useAppSelector(state => state.auth);
 
   const RootStackNavigator = createNativeStackNavigator();
 
@@ -21,7 +21,7 @@ const AppNavigator = (props: propsTypes) => {
         screenOptions={{
           headerShown: false,
         }}>
-        {!isAuth ? (
+        {!authStore.isAuth ? (
           <RootStackNavigator.Screen
             name="AuthStackNavigator"
             component={AuthStackNavigator}

@@ -20,6 +20,10 @@ const AuthScreen: React.FC = () => {
     dispatch(api.getUsers());
   }, []);
 
+  const authHandler = (user: {[key: string]: unknown}) => {
+    dispatch(api.authUsers(user.username, user.password));
+  };
+
   return (
     <View style={[AppContainers.mainContainer, styles.container]}>
       <Text style={styles.title}>Выбор пользователя для авторизации</Text>
@@ -27,7 +31,10 @@ const AuthScreen: React.FC = () => {
       <ScrollView>
         {authStore.users.length > 0 &&
           authStore.users.map(user => (
-            <TouchableOpacity style={[styles.userBtn]} key={user.id}>
+            <TouchableOpacity
+              style={[styles.userBtn]}
+              key={user.id}
+              onPress={() => authHandler(user)}>
               <Text>{user.firstName}</Text>
             </TouchableOpacity>
           ))}

@@ -13,7 +13,7 @@ const BottomTab = createBottomTabNavigator<BottomTabsTypeList>();
 
 const BottomTabs = () => {
   return (
-    <BottomTab.Navigator>
+    <BottomTab.Navigator screenOptions={{headerShown: false}}>
       <BottomTab.Screen
         name="MainStackNavigator"
         component={MainStackNavigator}
