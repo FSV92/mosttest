@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
+import {Provider} from 'react-redux';
 import {
   SafeAreaView,
   StatusBar,
@@ -9,6 +10,9 @@ import {
 } from 'react-native';
 
 import AppNavigator from './src/components/navigator/AppNavigator';
+import {setupStore} from './src/store/store';
+
+const store = setupStore();
 
 function App(): JSX.Element {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -27,9 +31,9 @@ function App(): JSX.Element {
 
     prepare();
 
-    setTimeout(() => {
-      setisAuth(true);
-    }, 3000);
+    // setTimeout(() => {
+    //   setisAuth(true);
+    // }, 3000);
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
@@ -49,7 +53,9 @@ function App(): JSX.Element {
           ios: 0,
           android: StatusBar.currentHeight || 0,
         })}>
-        <AppNavigator isAuth={isAuth} />
+        <Provider store={store}>
+          <AppNavigator isAuth={isAuth} />
+        </Provider>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
