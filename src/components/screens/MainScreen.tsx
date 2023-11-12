@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../store/hooks/redux';
 import AppContainers from '../../utils/appStyles/AppContainers';
 import * as api from '../../utils/functions';
+import {ICurrentProduct} from '../../store/_types';
 
 import ProductCard from '../widgets/ProductCard';
 import Categories from '../widgets/Categories';
@@ -11,6 +12,7 @@ import Categories from '../widgets/Categories';
 const MainScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const productsStore = useAppSelector(state => state.products);
+  const authStore = useAppSelector(state => state.auth);
 
   const [reachedEnd, setReachedEnd] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -19,6 +21,7 @@ const MainScreen: React.FC = () => {
   useEffect(() => {
     dispatch(api.getProducts());
     dispatch(api.getCategories());
+    dispatch(api.getCart(authStore.user.id));
   }, []);
 
   const loadMore = () => {
@@ -51,11 +54,11 @@ const MainScreen: React.FC = () => {
       {productsStore.products.length > 0 && (
         <FlatList
           data={productsStore.products}
-          keyExtractor={item => item.id}
+          keyExtractor={(item: ICurrentProduct) => String(item.id)}
           contentContainerStyle={[AppContainers.mainContainer, styles.list]}
           style={[styles.listStyle]}
           scrollEventThrottle={24}
-          ListFooterComponent={renderFooter}
+          // ListFooterComponent={renderFooter}
           // onEndReached={loadMore}
           // onEndReachedThreshold={1}
           // onMomentumScrollBegin={() => {

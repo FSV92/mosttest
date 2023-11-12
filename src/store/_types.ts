@@ -18,22 +18,30 @@ export interface IAuthState {
   };
 }
 
+export interface ICurrentProduct {
+  id: number | string | null;
+  title: string | null;
+  description: string | null;
+  price: number | null;
+  brand: string | null;
+  category: string | null;
+  thumbnail: string | null;
+  images: string[];
+  quantity?: number | string;
+
+  [key: string]: unknown;
+}
+
 export interface IProductsState {
-  products: any[];
-  currentProduct: {
-    id: number | null;
-    title: string | null;
-    description: string | null;
-    price: number | null;
-    brand: string | null;
-    category: string | null;
-    thumbnail: string | null;
-    images: string[];
-
-    [key: string]: unknown;
-  };
-
+  products: ICurrentProduct[];
+  currentProduct: ICurrentProduct;
   limitProducts: number;
   skipProducts: number;
   categories: string[];
+}
+
+export interface ICartState {
+  id: number | null;
+  products: ICurrentProduct[];
+  totalProducts: number | string | null;
 }

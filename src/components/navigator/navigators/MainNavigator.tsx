@@ -7,10 +7,20 @@ import CartScreen from '../../screens/CartScreen';
 import OrderScreen from '../../screens/OrderScreen';
 import ProductDetailScreen from '../../screens/ProductDetailScreen';
 
+import Header from '../../widgets/Header';
+import {getHeaderTitle} from '@react-navigation/elements';
+
 const MainStack = createNativeStackNavigator<MainStackNavigatorTypeList>();
 
 const MainStackNavigator = () => (
-  <MainStack.Navigator screenOptions={{headerShown: false}}>
+  <MainStack.Navigator
+    screenOptions={{
+      header: ({navigation, route, options}) => {
+        const title = getHeaderTitle(options, route.name);
+
+        return <Header title={title} />;
+      },
+    }}>
     <MainStack.Screen
       name="MainScreen"
       component={MainScreen}
@@ -19,9 +29,13 @@ const MainStackNavigator = () => (
     <MainStack.Screen
       name="ProductDetailScreen"
       component={ProductDetailScreen}
-      options={{title: 'Товар'}}
+      options={{title: ''}}
     />
-    <MainStack.Screen name="CartScreen" component={CartScreen} />
+    <MainStack.Screen
+      name="CartScreen"
+      component={CartScreen}
+      options={{title: 'Корзина'}}
+    />
     <MainStack.Screen name="OrderScreen" component={OrderScreen} />
   </MainStack.Navigator>
 );

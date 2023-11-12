@@ -11,7 +11,7 @@ export type AuthStackNavigatorTypeList = {
 
 export type MainStackNavigatorTypeList = {
   MainScreen: undefined;
-  ProductDetailScreen: {id: number | string};
+  ProductDetailScreen: {id: number | string | null};
   CartScreen: undefined;
   OrderScreen: undefined;
 };
@@ -21,8 +21,8 @@ export type ProfileStackNavigatorTypeList = {
 };
 
 export interface IRoutes {
-  route: {
-    params: {
+  route?: {
+    params?: {
       id?: number;
     };
   };

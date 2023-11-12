@@ -1,18 +1,29 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from 'react-native';
 import {AppColors} from '../../utils/appStyles/AppColors';
 
 type PropsTypes = {
   text: string;
   onPressHandler: () => void;
+  textStyle?: StyleProp<TextStyle> | null;
+  wrapStyle?: StyleProp<ViewStyle> | null;
 };
 
 const FilledButton: React.FC<PropsTypes> = props => {
-  const {text, onPressHandler} = props;
+  const {text, onPressHandler, textStyle, wrapStyle} = props;
 
   return (
-    <TouchableOpacity onPress={onPressHandler} style={styles.btnWrap}>
-      <Text style={styles.btntext}>{text}</Text>
+    <TouchableOpacity
+      onPress={onPressHandler}
+      style={[styles.btnWrap, wrapStyle]}>
+      <Text style={[styles.btntext, textStyle]}>{text}</Text>
     </TouchableOpacity>
   );
 };

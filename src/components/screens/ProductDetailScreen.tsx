@@ -3,23 +3,40 @@ import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
 import AppContainers from '../../utils/appStyles/AppContainers';
 
 import {useAppDispatch, useAppSelector} from '../../store/hooks/redux';
+import {useNavigation} from '@react-navigation/native';
 import * as api from '../../utils/functions';
 import {IRoutes} from '../navigator/_navigatorTypes';
 import ProductImagesSlider from '../widgets/ProductImagesSlider';
 import Quantity from '../widgets/Quantity';
 import FilledButton from '../elements/FilledButton';
+import {ICurrentProduct} from '../../store/_types';
 
 const ProductDetailScreen: React.FC<IRoutes> = ({route}) => {
+  const navigation = useNavigation();
   const id = route?.params?.id && route.params.id;
   const dispatch = useAppDispatch();
   const productsStore = useAppSelector(state => state.products);
+  const cartStore = useAppSelector(state => state.cart);
+  const authStore = useAppSelector(state => state.auth);
   const {currentProduct} = productsStore;
 
   useEffect(() => {
     dispatch(api.getCurrentProduct(id));
   }, []);
 
-  const addToCart = () => {};
+  const addToArray = (array: ICurrentProduct[], product: ICurrentProduct) => {
+    array.push(product);
+
+    return array;
+  };
+
+  const addToCart = () => {
+    const newArray = addToArray(cartStore.products, currentProduct);
+
+    dispatch(api.updateCart(authStore.user.id, newArray));
+  };
+
+  // console.log('currentProduct.quantity', currentProduct);
 
   return (
     <View style={[styles.screen]}>
@@ -40,7 +57,11 @@ const ProductDetailScreen: React.FC<IRoutes> = ({route}) => {
         </View>
 
         <View style={styles.productBottomBar}>
-          <Quantity />
+          <Quantity
+            quantity={currentProduct.quantity}
+            type="current"
+            productID={currentProduct.id}
+          />
           <FilledButton text="Добавить в корзину" onPressHandler={addToCart} />
         </View>
       </View>

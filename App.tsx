@@ -67,6 +67,7 @@ function App(): JSX.Element {
           flex: 1,
           width: '100%',
         }}
+        behavior={Platform.select({ios: 'padding', android: null})}
         keyboardVerticalOffset={Platform.select({
           ios: 0,
           android: StatusBar.currentHeight || 0,

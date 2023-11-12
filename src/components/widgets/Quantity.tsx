@@ -7,24 +7,60 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import {useAppDispatch, useAppSelector} from '../../store/hooks/redux';
+// import * as api from '../../utils/functions';
+import {
+  actionSetQuantityCurrent,
+  actionSetQuantityCard,
+} from '../../store/actions/productsActions';
 import {AppColors} from '../../utils/appStyles/AppColors';
 
-const Quantity = () => {
-  const [value, setValue] = useState<number>(1);
+type PropTypes = {
+  quantity?: number | string;
+  type?: string;
+  productID: number | string | null;
+};
+
+const Quantity: React.FC<PropTypes> = props => {
+  const {quantity, type, productID} = props;
+  const [value, setValue] = useState<number | string>(1);
+
+  const dispatch = useAppDispatch();
+
+  const increment = () => {};
+  const decrement = () => {
+    // if (quantity > 0) {
+    // }
+  };
+  const setQuantity = (value: number | string) => {
+    // dispatch(api.updateCart(authStore.user.id, newArray));
+
+    console.log('productID', productID);
+
+    type == 'card' && dispatch(actionSetQuantityCard(value, productID));
+    type == 'current' && dispatch(actionSetQuantityCurrent(value));
+  };
+  // console.log('quantity', quantity);
 
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity onPress={decrement} style={styles.btn}>
         <Text style={styles.btnText}>-</Text>
       </TouchableOpacity>
 
       <TextInput
         style={styles.input}
         keyboardType="numeric"
-        value={value.toString()}
+        value={
+          String(quantity)
+          // || String(value)
+        }
+        onChange={value => {
+          setQuantity(value.nativeEvent.text);
+        }}
       />
 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity onPress={increment} style={styles.btn}>
         <Text style={styles.btnText}>+</Text>
       </TouchableOpacity>
     </View>

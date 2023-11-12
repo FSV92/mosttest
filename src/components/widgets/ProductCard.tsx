@@ -11,24 +11,61 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
+
+import {useAppDispatch, useAppSelector} from '../../store/hooks/redux';
 import AppStyles from '../../utils/appStyles/AppStyles';
 import FilledButton from '../elements/FilledButton';
+import BlankButton from '../elements/BlankButton';
+import * as api from '../../utils/functions';
+import {ICurrentProduct} from '../../store/_types';
 import Quantity from './Quantity';
 
 type PropTypes = {
-  product: {id: number; thumbnail: string; title: string; price: string};
+  product: ICurrentProduct;
   wrapStyle: StyleProp<ViewStyle> | null;
+  screen?: string;
+};
+
+const addToArray = (array: ICurrentProduct[], product: ICurrentProduct) => {
+  array.push(product);
+
+  return array;
+};
+
+const removeProductArray = (
+  array: ICurrentProduct[],
+  id: number | string | null,
+) => {
+  const newArray = array.filter(el => el.id != id);
+
+  return newArray;
 };
 
 const ProductCard: React.FC<PropTypes> = props => {
-  const {product, wrapStyle} = props;
+  const {product, wrapStyle, screen} = props;
   const navigation = useNavigation<MainStackNavigatorTypeListProp>();
 
-  const addToCart = () => {};
+  const dispatch = useAppDispatch();
+  const cartStore = useAppSelector(state => state.cart);
+  const authStore = useAppSelector(state => state.auth);
+
+  const addToCart = () => {
+    const newArray = addToArray(cartStore.products, product);
+
+    dispatch(api.updateCart(authStore.user.id, newArray));
+  };
+
+  const removeFromCart = () => {
+    const newArray = removeProductArray(cartStore.products, product.id);
+
+    dispatch(api.updateCart(authStore.user.id, newArray));
+  };
 
   const navigateToDetail = () => {
     navigation.navigate('ProductDetailScreen', {id: product.id});
   };
+
+  // console.log('product.quantity', product.id);
 
   return (
     <TouchableOpacity
@@ -53,8 +90,29 @@ const ProductCard: React.FC<PropTypes> = props => {
         </View>
 
         <View style={styles.productBottomBar}>
-          <Quantity />
-          <FilledButton text="Добавить в корзину" onPressHandler={addToCart} />
+          <Quantity
+            quantity={product.quantity || 1}
+            type="card"
+            productID={product.id}
+          />
+          {screen == 'cart' ? (
+            <BlankButton
+              text="Удалить из корзины"
+              onPressHandler={removeFromCart}
+              textStyle={{fontSize: 12, fontWeight: 'normal'}}
+              wrapStyle={{
+                paddingVertical: 5,
+                flex: 1,
+                alignItems: 'center',
+                marginLeft: 10,
+              }}
+            />
+          ) : (
+            <FilledButton
+              text="Добавить в корзину"
+              onPressHandler={addToCart}
+            />
+          )}
         </View>
       </View>
     </TouchableOpacity>

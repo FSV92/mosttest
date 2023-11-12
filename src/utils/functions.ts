@@ -11,10 +11,11 @@ import {
   actionGetCategories,
   actionGetProductsOfCategory,
 } from '../store/actions/productsActions';
+import {actionGetCart, actionUpdateCart} from '../store/actions/cartActions';
 import {RootStateType} from '../store/store';
 import {defaultState} from '../store/reducers/productsReducer';
 import {store} from '../store/store';
-import {IAction} from '../store/_types';
+import {IAction, ICurrentProduct} from '../store/_types';
 
 export const getUsers = () => {
   return (dispatch: ThunkDispatch<RootStateType, unknown, IAction>) => {
@@ -67,7 +68,6 @@ export const getProducts = () => {
         },
       })
       .then(response => {
-        // console.log(response.data.products);
         dispatch(actionGetProducts(response.data.products));
         dispatch(actionUpdateSkip());
       })
@@ -82,9 +82,6 @@ export const getCurrentProduct = (id: string | number | undefined) => {
     axios
       .get(links.getCurrentProduct(id))
       .then(response => {
-        // console.log(response.data);
-
-        // console.log(response.data.products);c
         dispatch(actionGetCurrentProduct(response.data));
       })
       .catch(error => {
@@ -98,9 +95,6 @@ export const getCategories = (id: string | number | undefined) => {
     axios
       .get(links.getCategories)
       .then(response => {
-        // console.log(response.data);
-
-        // console.log(response.data.products);c
         dispatch(actionGetCategories(response.data));
       })
       .catch(error => {
@@ -114,9 +108,44 @@ export const getProductsOfCategory = (category: string | undefined) => {
     axios
       .get(links.getProductsOfCategory(category))
       .then(response => {
-        // console.log(response.data);
-        // console.log(response.data.products);c
         dispatch(actionGetProductsOfCategory(response.data.products));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const getCart = (id: string | number | undefined) => {
+  return (dispatch: ThunkDispatch<RootStateType, unknown, IAction>) => {
+    axios
+      .get(links.getCart(id))
+      .then(response => {
+        dispatch(actionGetCart(response.data));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const updateCart = (
+  id: string | number | undefined,
+  newArray: ICurrentProduct[] | [],
+) => {
+  return (dispatch: ThunkDispatch<RootStateType, unknown, IAction>) => {
+    axios
+      .put(
+        links.updateCart(id),
+        {
+          products: newArray,
+        },
+        {
+          headers: {'Content-Type': 'application/json'},
+        },
+      )
+      .then(response => {
+        dispatch(actionUpdateCart(response.data));
       })
       .catch(error => {
         console.log(error);
