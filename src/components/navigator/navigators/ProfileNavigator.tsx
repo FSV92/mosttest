@@ -12,7 +12,7 @@ const ProfileStackNavigator = () => (
     <ProfileStack.Screen
       name="ProfileScreen"
       component={ProfileScreen}
-      options={{title: 'Профиль пользователя'}}
+      options={{title: 'Профиль'}}
     />
   </ProfileStack.Navigator>
 );

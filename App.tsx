@@ -12,9 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AppNavigator from './src/components/navigator/AppNavigator';
 import {actionAuthUser} from './src/store/actions/authActions';
-import {setupStore} from './src/store/store';
-
-const store = setupStore();
+import {store} from './src/store/store';
 
 // проверка авторизован ли пользователь
 const checkSavedUser = async () => {

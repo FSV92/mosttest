@@ -1,6 +1,6 @@
 export interface IAction {
   type: string;
-  payload: any;
+  payload?: any;
 }
 
 export interface IAuthState {
@@ -16,4 +16,24 @@ export interface IAuthState {
     token: string | null;
     username: string | null;
   };
+}
+
+export interface IProductsState {
+  products: any[];
+  currentProduct: {
+    id: number | null;
+    title: string | null;
+    description: string | null;
+    price: number | null;
+    brand: string | null;
+    category: string | null;
+    thumbnail: string | null;
+    images: string[];
+
+    [key: string]: unknown;
+  };
+
+  limitProducts: number;
+  skipProducts: number;
+  categories: string[];
 }

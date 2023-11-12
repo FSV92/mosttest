@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import {useAppSelector, useAppDispatch} from '../../store/hooks/redux';
 import AppContainers from '../../utils/appStyles/AppContainers';
 import {AppColors} from '../../utils/appStyles/AppColors';
-import Button from '../elements/Button';
+import BlankButton from '../elements/BlankButton';
 import {actionAuthUser} from '../../store/actions/authActions';
 
 const ProfileScreen: React.FC = () => {
@@ -44,7 +44,7 @@ const ProfileScreen: React.FC = () => {
         </View>
       </View>
 
-      <Button text="Выйти" onPressHandler={logout} />
+      <BlankButton text="Выйти" onPressHandler={logout} />
     </View>
   );
 };

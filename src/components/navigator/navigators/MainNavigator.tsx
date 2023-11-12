@@ -11,10 +11,15 @@ const MainStack = createNativeStackNavigator<MainStackNavigatorTypeList>();
 
 const MainStackNavigator = () => (
   <MainStack.Navigator screenOptions={{headerShown: false}}>
-    <MainStack.Screen name="MainScreen" component={MainScreen} />
+    <MainStack.Screen
+      name="MainScreen"
+      component={MainScreen}
+      options={{title: 'Главная'}}
+    />
     <MainStack.Screen
       name="ProductDetailScreen"
       component={ProductDetailScreen}
+      options={{title: 'Товар'}}
     />
     <MainStack.Screen name="CartScreen" component={CartScreen} />
     <MainStack.Screen name="OrderScreen" component={OrderScreen} />

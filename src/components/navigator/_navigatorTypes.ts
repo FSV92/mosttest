@@ -1,3 +1,5 @@
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
 export type BottomTabsTypeList = {
   MainStackNavigator: undefined;
   ProfileStackNavigator: undefined;
@@ -9,7 +11,7 @@ export type AuthStackNavigatorTypeList = {
 
 export type MainStackNavigatorTypeList = {
   MainScreen: undefined;
-  ProductDetailScreen: undefined;
+  ProductDetailScreen: {id: number | string};
   CartScreen: undefined;
   OrderScreen: undefined;
 };
@@ -17,3 +19,14 @@ export type MainStackNavigatorTypeList = {
 export type ProfileStackNavigatorTypeList = {
   ProfileScreen: undefined;
 };
+
+export interface IRoutes {
+  route: {
+    params: {
+      id?: number;
+    };
+  };
+}
+
+export type MainStackNavigatorTypeListProp =
+  NativeStackNavigationProp<MainStackNavigatorTypeList>;

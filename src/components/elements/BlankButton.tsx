@@ -7,7 +7,7 @@ type PropsTypes = {
   onPressHandler: () => void;
 };
 
-const Button: React.FC<PropsTypes> = props => {
+const BlankButton: React.FC<PropsTypes> = props => {
   const {text, onPressHandler} = props;
 
   return (
@@ -17,7 +17,7 @@ const Button: React.FC<PropsTypes> = props => {
   );
 };
 
-export default Button;
+export default BlankButton;
 
 const styles = StyleSheet.create({
   btnWrap: {
