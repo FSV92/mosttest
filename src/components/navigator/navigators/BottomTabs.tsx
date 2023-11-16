@@ -9,6 +9,9 @@ import {BottomTabsTypeList} from '../_navigatorTypes';
 import ProfileStackNavigator from './ProfileNavigator';
 import MainStackNavigator from './MainNavigator';
 
+import Home from '../../../images/svg/home.svg';
+import Profile from '../../../images/svg/profile.svg';
+
 const BottomTab = createBottomTabNavigator<BottomTabsTypeList>();
 
 const BottomTabs = () => {
@@ -22,6 +25,9 @@ const BottomTabs = () => {
         component={MainStackNavigator}
         options={{
           tabBarLabel: 'Главная',
+          tabBarIcon: ({color}) => (
+            <Home width={22} height={22} color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
@@ -29,6 +35,9 @@ const BottomTabs = () => {
         component={ProfileStackNavigator}
         options={{
           tabBarLabel: 'Профиль',
+          tabBarIcon: ({color}) => (
+            <Profile width={22} height={22} color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>

@@ -7,6 +7,7 @@ export const actionGetCart = (payload: any): IAction => ({
     id: payload.id,
     products: payload.products,
     totalProducts: payload.totalProducts,
+    totalPrice: payload.total,
   },
 });
 
@@ -16,5 +17,6 @@ export const actionUpdateCart = (payload: any): IAction => ({
     id: payload.id,
     products: payload.products,
     totalProducts: payload.totalProducts,
+    totalPrice: payload.total,
   },
 });

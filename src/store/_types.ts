@@ -44,4 +44,5 @@ export interface ICartState {
   id: number | null;
   products: ICurrentProduct[];
   totalProducts: number | string | null;
+  totalPrice: number | string;
 }

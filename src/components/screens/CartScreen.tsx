@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
+import {MainStackNavigatorTypeListProp} from '../navigator/_navigatorTypes';
 import ProductCard from '../widgets/ProductCard';
 import AppContainers from '../../utils/appStyles/AppContainers';
 import {ICurrentProduct} from '../../store/_types';
@@ -10,6 +12,8 @@ import BlankButton from '../elements/BlankButton';
 import FilledButton from '../elements/FilledButton';
 
 const CartScreen: React.FC = () => {
+  const navigation = useNavigation<MainStackNavigatorTypeListProp>();
+
   const dispatch = useAppDispatch();
   const cartStore = useAppSelector(state => state.cart);
   const authStore = useAppSelector(state => state.auth);
@@ -22,7 +26,9 @@ const CartScreen: React.FC = () => {
     dispatch(api.updateCart(authStore.user.id, newArray, 'del'));
   };
 
-  const navigateToOrder = () => {};
+  const navigateToOrder = () => {
+    navigation.navigate('OrderScreen');
+  };
 
   return (
     <View style={styles.screen}>

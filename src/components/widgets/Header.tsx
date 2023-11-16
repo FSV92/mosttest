@@ -12,6 +12,9 @@ import {MainStackNavigatorTypeListProp} from '../navigator/_navigatorTypes';
 import {useNavigation} from '@react-navigation/native';
 import AppContainers from '../../utils/appStyles/AppContainers';
 
+import Search from '../../images/svg/search.svg';
+import Cart from '../../images/svg/cart.svg';
+
 type PropTypes = {
   title: string;
 };
@@ -32,11 +35,11 @@ const Header: React.FC<PropTypes> = props => {
 
       <View style={styles.btns}>
         <TouchableOpacity style={styles.search}>
-          <Text>Поиск</Text>
+          <Search width={35} height={35} color="#000" />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={navigateToCart}>
-          <Text>Корзина</Text>
+          <Cart width={35} height={35} color="#000" />
           <View style={styles.count}>
             <Text style={styles.countText}>{String(totalProducts)}</Text>
           </View>
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
   },
   count: {
     position: 'absolute',
-    right: -20,
+    right: -10,
     top: 0,
     borderRadius: 50,
     backgroundColor: 'red',

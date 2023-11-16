@@ -36,7 +36,11 @@ const MainStackNavigator = () => (
       component={CartScreen}
       options={{title: 'Корзина'}}
     />
-    <MainStack.Screen name="OrderScreen" component={OrderScreen} />
+    <MainStack.Screen
+      name="OrderScreen"
+      component={OrderScreen}
+      options={{title: 'Ваш заказ'}}
+    />
   </MainStack.Navigator>
 );
 

@@ -5,6 +5,7 @@ const defaultState: ICartState = {
   id: null,
   products: [],
   totalProducts: 0,
+  totalPrice: 0,
 };
 
 export const cartReducer = (
@@ -18,6 +19,7 @@ export const cartReducer = (
         id: action.payload.id,
         products: action.payload.products,
         totalProducts: action.payload.totalProducts,
+        totalPrice: action.payload.totalPrice,
       };
     case UPDATE_CART:
       return {
@@ -25,6 +27,7 @@ export const cartReducer = (
         id: action.payload.id,
         products: action.payload.products,
         totalProducts: action.payload.totalProducts,
+        totalPrice: action.payload.totalPrice,
       };
     // case AUTH_USER:
     //   return {
