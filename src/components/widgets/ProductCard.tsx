@@ -18,7 +18,9 @@ import FilledButton from '../elements/FilledButton';
 import BlankButton from '../elements/BlankButton';
 import * as api from '../../utils/functions';
 import {ICurrentProduct} from '../../store/_types';
+import Trash from '../../images/svg/Trash.svg';
 import Quantity from './Quantity';
+import {AppColors} from '../../utils/appStyles/AppColors';
 
 type PropTypes = {
   product: ICurrentProduct;

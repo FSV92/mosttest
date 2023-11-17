@@ -12,8 +12,8 @@ import {MainStackNavigatorTypeListProp} from '../navigator/_navigatorTypes';
 import {useNavigation} from '@react-navigation/native';
 import AppContainers from '../../utils/appStyles/AppContainers';
 
-import Search from '../../images/svg/search.svg';
-import Cart from '../../images/svg/cart.svg';
+import Search from '../../images/svg/Search.svg';
+import Cart from '../../images/svg/Cart.svg';
 
 type PropTypes = {
   title: string;

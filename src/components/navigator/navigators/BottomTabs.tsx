@@ -9,8 +9,8 @@ import {BottomTabsTypeList} from '../_navigatorTypes';
 import ProfileStackNavigator from './ProfileNavigator';
 import MainStackNavigator from './MainNavigator';
 
-import Home from '../../../images/svg/home.svg';
-import Profile from '../../../images/svg/profile.svg';
+import Home from '../../../images/svg/Home.svg';
+import Profile from '../../../images/svg/Profile.svg';
 
 const BottomTab = createBottomTabNavigator<BottomTabsTypeList>();
 
