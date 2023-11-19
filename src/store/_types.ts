@@ -27,7 +27,7 @@ export interface ICurrentProduct {
   category: string | null;
   thumbnail: string | null;
   images: string[];
-  quantity?: number | string;
+  quantity: number | string;
 
   [key: string]: unknown;
 }

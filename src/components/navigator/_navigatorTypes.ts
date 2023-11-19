@@ -1,4 +1,5 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {ICurrentProduct} from '../../store/_types';
 
 export type BottomTabsTypeList = {
   MainStackNavigator: undefined;
@@ -11,7 +12,7 @@ export type AuthStackNavigatorTypeList = {
 
 export type MainStackNavigatorTypeList = {
   MainScreen: undefined;
-  ProductDetailScreen: {id: number | string | null};
+  ProductDetailScreen: {currentProduct: ICurrentProduct};
   CartScreen: undefined;
   OrderScreen: undefined;
 };
@@ -24,6 +25,7 @@ export interface IRoutes {
   route?: {
     params?: {
       id?: number;
+      currentProduct?: ICurrentProduct;
     };
   };
 }

@@ -64,10 +64,12 @@ const ProductCard: React.FC<PropTypes> = props => {
   };
 
   const navigateToDetail = () => {
-    navigation.navigate('ProductDetailScreen', {id: product.id});
+    // console.log('product', product);
+
+    navigation.navigate('ProductDetailScreen', {currentProduct: product});
   };
 
-  // console.log('product.quantity', product.id);
+  // console.log('product.inCart', product.inCart);
 
   return (
     <TouchableOpacity
@@ -93,7 +95,7 @@ const ProductCard: React.FC<PropTypes> = props => {
 
         <View style={styles.productBottomBar}>
           <Quantity
-            quantity={product.quantity || 1}
+            quantity={product.quantity}
             type="card"
             productID={product.id}
           />
@@ -109,11 +111,13 @@ const ProductCard: React.FC<PropTypes> = props => {
                 marginLeft: 10,
               }}
             />
-          ) : (
+          ) : !product.inCart ? (
             <FilledButton
               text="Добавить в корзину"
               onPressHandler={addToCart}
             />
+          ) : (
+            <Text>Товар в корзине</Text>
           )}
         </View>
       </View>

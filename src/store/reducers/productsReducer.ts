@@ -9,7 +9,23 @@ import {
   SET_QUANTITY_CURRENT,
   SET_QUANTITY_CARD,
 } from '../_constans';
-import {IAuthState, IAction, IProductsState} from '../_types';
+import {IAuthState, IAction, IProductsState, ICurrentProduct} from '../_types';
+
+class ProductModel {
+  constructor(props: ICurrentProduct) {
+    this.id = props.id;
+    this.title = props.title;
+    this.description = props.description;
+    this.price = props.price;
+    this.brand = props.brand;
+    this.category = props.category;
+    this.thumbnail = props.thumbnail;
+    this.images = props.images;
+    this.quantity = props.quantity ? props.quantity : 1;
+  }
+
+  [index: string]: any;
+}
 
 export const defaultState: IProductsState = {
   products: [],
@@ -33,11 +49,16 @@ export const productsReducer = (
   state = defaultState,
   action: IAction,
 ): IProductsState => {
+  let updatedProducts;
+
   switch (action.type) {
     case GET_PRODUCTS:
+      const products = action.payload.map((prod: ICurrentProduct) => {
+        return new ProductModel(prod);
+      });
       return {
         ...state,
-        products: [...state.products, ...action.payload],
+        products: [...state.products, ...products],
       };
     case UPDATE_SKIP_PRODUCTS:
       return {
@@ -57,7 +78,7 @@ export const productsReducer = (
     case GET_CURRENT_PRODUCT:
       return {
         ...state,
-        currentProduct: {...action.payload, quantity: 1},
+        currentProduct: {...action.payload},
       };
     case SET_QUANTITY_CURRENT:
       return {
@@ -68,18 +89,45 @@ export const productsReducer = (
         },
       };
     case SET_QUANTITY_CARD:
-      const updatedProducts = state.products.map(prod => {
+      updatedProducts = state.products.map(prod => {
         if (prod.id == action.payload.productID) {
-          console.log('prod', prod);
-
           return {
             ...prod,
             quantity: action.payload.quantity,
           };
         }
+        return prod;
       });
 
-      // console.log('foundProduct', foundProduct?.id);
+      return {
+        ...state,
+        products: updatedProducts,
+      };
+    case INCREMENT:
+      updatedProducts = state.products.map(prod => {
+        if (prod.id == action.payload.productID) {
+          return {
+            ...prod,
+            quantity: action.payload.quantity,
+          };
+        }
+        return prod;
+      });
+
+      return {
+        ...state,
+        products: updatedProducts,
+      };
+    case DECREMENT:
+      updatedProducts = state.products.map(prod => {
+        if (prod.id == action.payload.productID) {
+          return {
+            ...prod,
+            quantity: action.payload.quantity,
+          };
+        }
+        return prod;
+      });
 
       return {
         ...state,

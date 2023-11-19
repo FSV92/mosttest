@@ -12,16 +12,16 @@ import FilledButton from '../elements/FilledButton';
 import {ICurrentProduct} from '../../store/_types';
 
 const ProductDetailScreen: React.FC<IRoutes> = ({route}) => {
-  const navigation = useNavigation();
-  const id = route?.params?.id && route.params.id;
+  // const id = route?.params?.id && route.params.id;
+  const currentProduct = route?.params?.currentProduct;
   const dispatch = useAppDispatch();
   const productsStore = useAppSelector(state => state.products);
   const cartStore = useAppSelector(state => state.cart);
   const authStore = useAppSelector(state => state.auth);
-  const {currentProduct} = productsStore;
+  // const {currentProduct} = productsStore;
 
   useEffect(() => {
-    dispatch(api.getCurrentProduct(id));
+    // dispatch(api.getCurrentProduct(id));
   }, []);
 
   const addToArray = (array: ICurrentProduct[], product: ICurrentProduct) => {

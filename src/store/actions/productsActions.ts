@@ -6,6 +6,8 @@ import {
   GET_PRODUCTS_OF_CATEGORY,
   SET_QUANTITY_CURRENT,
   SET_QUANTITY_CARD,
+  INCREMENT,
+  DECREMENT,
 } from '../_constans';
 import {IAction} from '../_types';
 
@@ -33,11 +35,13 @@ export const actionGetProductsOfCategory = (payload: any): IAction => ({
   payload,
 });
 
+// измененение количества на детальной товара
 export const actionSetQuantityCurrent = (payload: any): IAction => ({
   type: SET_QUANTITY_CURRENT,
   payload,
 });
 
+// измененение количества в карточке товара
 export const actionSetQuantityCard = (
   value: number | string,
   productID: number | string | null,
@@ -46,12 +50,18 @@ export const actionSetQuantityCard = (
   payload: {quantity: value, productID},
 });
 
-// export const actionGetProductsOfCategory = (payload: any): IAction => ({
-//   type: GET_PRODUCTS_OF_CATEGORY,
-//   payload,
-// });
+export const actionIncrement = (
+  value: number | string,
+  productID: number | string | null,
+): IAction => ({
+  type: INCREMENT,
+  payload: {quantity: Number(value) + 1, productID},
+});
 
-// export const actionGetProductsOfCategory = (payload: any): IAction => ({
-//   type: GET_PRODUCTS_OF_CATEGORY,
-//   payload,
-// });
+export const actionDecrement = (
+  value: number | string,
+  productID: number | string | null,
+): IAction => ({
+  type: DECREMENT,
+  payload: {quantity: Number(value) - 1, productID},
+});

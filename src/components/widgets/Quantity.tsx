@@ -12,11 +12,13 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks/redux';
 import {
   actionSetQuantityCurrent,
   actionSetQuantityCard,
+  actionIncrement,
+  actionDecrement,
 } from '../../store/actions/productsActions';
 import {AppColors} from '../../utils/appStyles/AppColors';
 
 type PropTypes = {
-  quantity?: number | string;
+  quantity: number | string;
   type?: string;
   productID: number | string | null;
 };
@@ -27,20 +29,17 @@ const Quantity: React.FC<PropTypes> = props => {
 
   const dispatch = useAppDispatch();
 
-  const increment = () => {};
+  const increment = () => {
+    dispatch(actionIncrement(quantity, productID));
+  };
   const decrement = () => {
-    // if (quantity > 0) {
-    // }
+    dispatch(actionDecrement(quantity, productID));
   };
-  const setQuantity = (value: number | string) => {
-    // dispatch(api.updateCart(authStore.user.id, newArray));
 
-    console.log('productID', productID);
-
-    type == 'card' && dispatch(actionSetQuantityCard(value, productID));
-    type == 'current' && dispatch(actionSetQuantityCurrent(value));
+  const setQuantity = (quantity: number | string) => {
+    type == 'card' && dispatch(actionSetQuantityCard(quantity, productID));
+    type == 'current' && dispatch(actionSetQuantityCurrent(quantity));
   };
-  // console.log('quantity', quantity);
 
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
